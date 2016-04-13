@@ -1,4 +1,4 @@
-#include <Python.h>
+#include <Python.h>  // FIRST, before any other header!!
 #include <time.h>
 #include <stdlib.h>
 
@@ -14,7 +14,7 @@ module_function(PyObject *self, PyObject *args){
 }
 
 static PyObject *
-myrandom(PyObject *self){
+myrandom(PyObject *self, PyObject *args){
     int r = rand();
     float a = r/(float)RAND_MAX;
     return Py_BuildValue("f", a);
@@ -29,8 +29,7 @@ static PyMethodDef MyMethods[] = {
 PyMODINIT_FUNC
 initmymath(void) // This NAME is COMPULSORY
 {
-    int seed = time(NULL);
-      srand(seed);
-    (void) Py_InitModule("mymath", MyMethods, "My documentation of the mymath module");
-
+    srand((int)time(NULL));
+    (void) Py_InitModule3("mymath", MyMethods,
+                          "My documentation of the mymath module");
 }

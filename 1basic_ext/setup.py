@@ -1,6 +1,8 @@
 from distutils.core import setup, Extension
 
-module1 = Extension('mymath', sources = ['suma.c'])
+# SET VS90COMNTOOLS=%VS140COMNTOOLS%
+
+module1 = Extension('mymath', sources = ['sum.c'])
 
 setup (name = 'MyMaths',
        version = '1.0',
