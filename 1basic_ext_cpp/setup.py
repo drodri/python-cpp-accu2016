@@ -2,7 +2,8 @@ from distutils.core import setup, Extension
 
 # SET VS90COMNTOOLS=%VS140COMNTOOLS%
 
-module1 = Extension('mymath', sources = ['mymath.c'])
+module1 = Extension('mymath', sources = ['mymath.cpp'],
+                    extra_compile_args = ["/EHsc"])
 
 setup (name = 'MyMaths',
        version = '1.0',

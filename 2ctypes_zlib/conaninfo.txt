@@ -1,0 +1,27 @@
+[settings]
+    arch=x86
+    build_type=Release
+    compiler=Visual Studio
+    compiler.runtime=MD
+    compiler.version=14
+    os=Windows
+
+[requires]
+    zlib/1.Y.Z
+
+[options]
+
+
+[full_settings]
+    arch=x86
+    build_type=Release
+    compiler=Visual Studio
+    compiler.runtime=MD
+    compiler.version=14
+    os=Windows
+
+[full_requires]
+    zlib/1.2.8@lasote/stable:ca0c09cfa678fd91b04c82824988c42e9ac40ddf
+
+[full_options]
+    zlib:shared=True

@@ -1,0 +1,9 @@
+[requires]
+zlib/1.2.8@lasote/stable
+
+[generators]
+txt
+
+[options]
+zlib:shared=True
+
