@@ -3,29 +3,6 @@ import ctypes, os
 bindir = "C:/Users/drodri/.conan/data/zlib/1.2.8/lasote/stable/package/ca0c09cfa678fd91b04c82824988c42e9ac40ddf/bin" 
 _zlib = ctypes.CDLL(os.path.join(bindir, "zlib.dll"))
 
-# Work by https://gist.github.com/colinmarc/2152055
-__license__ = """
-Copyright (c) 2009-2012 Mark Nottingham <mnot@pobox.com>
- 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
- 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
- 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-"""
-
 class _z_stream(ctypes.Structure):
     _fields_ = [
         ("next_in", ctypes.POINTER(ctypes.c_ubyte)),
@@ -68,6 +45,7 @@ def compress(input, level=6):
         outbuf = ctypes.create_string_buffer(CHUNK)
         st.next_out = ctypes.cast(outbuf, ctypes.POINTER(ctypes.c_ubyte))
         err = _zlib.deflate(ctypes.byref(st), Z_FINISH)
+        print "Deflated ", err, st.avail_out, st.avail_in
         out.append(outbuf[:CHUNK-st.avail_out])
         if err == Z_STREAM_END: break
         elif err == Z_OK: pass
@@ -114,3 +92,27 @@ if __name__ == '__main__':
     _test()
 
 
+
+
+# Work based in https://gist.github.com/colinmarc/2152055
+__license__ = """
+Copyright (c) 2009-2012 Mark Nottingham <mnot@pobox.com>
+ 
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+ 
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+ 
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+"""

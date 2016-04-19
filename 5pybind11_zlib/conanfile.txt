@@ -1,0 +1,12 @@
+[requires]
+pybind11/1.4@memsharded/stable
+zlib/1.2.8@lasote/stable
+
+[generators]
+cmake
+
+[options]
+zlib:shared=True
+
+[imports]
+bin, *.dll -> ./

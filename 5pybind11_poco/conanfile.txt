@@ -1,0 +1,12 @@
+[requires]
+pybind11/1.4@memsharded/stable
+Poco/1.7.2/lasote/stable
+
+[generators]
+cmake
+
+[options]
+Poco:shared=True
+
+[imports]
+bin, *.dll -> ../

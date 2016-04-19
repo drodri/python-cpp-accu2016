@@ -1,0 +1,29 @@
+[settings]
+    arch=x86
+    build_type=Release
+    compiler=Visual Studio
+    compiler.runtime=MD
+    compiler.version=14
+    os=Windows
+
+[requires]
+    pybind11/1.Y.Z
+    zlib/1.Y.Z
+
+[options]
+
+
+[full_settings]
+    arch=x86
+    build_type=Release
+    compiler=Visual Studio
+    compiler.runtime=MD
+    compiler.version=14
+    os=Windows
+
+[full_requires]
+    pybind11/1.4@memsharded/stable:5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9
+    zlib/1.2.8@lasote/stable:ca0c09cfa678fd91b04c82824988c42e9ac40ddf
+
+[full_options]
+    zlib:shared=True

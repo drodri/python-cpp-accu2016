@@ -1,5 +1,4 @@
 [requires]
-zlib-ng/1.2.8@lasote/stable
 zlib/1.2.8@lasote/stable
 
 [generators]
@@ -7,4 +6,4 @@ txt
 
 [options]
 zlib:shared=True
-zlib-ng:shared=True
+

@@ -29,3 +29,5 @@ initmymath(void){ // This NAME is COMPULSORY
     (void) Py_InitModule3("mymath", MyMethods,
                           "My documentation of the mymath module");
 }
+
+//"C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\dumpbin.exe" /EXPORTS mymath.pyd
