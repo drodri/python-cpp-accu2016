@@ -20,7 +20,7 @@ myrandom(PyObject *self, PyObject *args){
 static PyMethodDef MyMethods[] = {
     {"add",  module_function, METH_VARARGS, "Adds two numbers"},
     {"random",  myrandom, METH_NOARGS, "Execute a shell command."},
-    {NULL, NULL, 0, NULL}        /* Sentinel */
+    {NULL, NULL, 0, NULL}
 };
 
 PyMODINIT_FUNC

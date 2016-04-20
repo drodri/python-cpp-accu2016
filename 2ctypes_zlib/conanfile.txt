@@ -7,3 +7,5 @@ txt
 [options]
 zlib:shared=True
 
+[imports]
+bin, *.dll -> ./

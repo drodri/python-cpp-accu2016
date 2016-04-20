@@ -1,8 +1,7 @@
 #include <Python.h>
 static PyObject* MyMathError;
 
-static PyObject *
-divide(PyObject *self, PyObject *args){
+static PyObject* divide(PyObject *self, PyObject *args){
     int a, b, c;
     if (!PyArg_ParseTuple(args, "ii", &a, &b)){
         PyObject* err=PyErr_Occurred();
@@ -15,6 +14,7 @@ divide(PyObject *self, PyObject *args){
     }
     if(b==0){
         PyErr_SetString(PyExc_ZeroDivisionError,"Division by 0");
+        //Py_RETURN_NONE; => Nothing happens, no py exception raised
         return NULL;
     }
     c = a/b;

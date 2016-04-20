@@ -5,6 +5,7 @@ int
 main(int argc, char *argv[])
 {
     Py_SetProgramName(argv[0]);
+    //set PYTHONHOME=C:/python27
     Py_SetPythonHome("C:/Python27");
     Py_Initialize();
 

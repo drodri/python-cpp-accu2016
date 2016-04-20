@@ -1,55 +1,14 @@
 import os
 import ctypes
 from ctypes import create_string_buffer
-from cffi import FFI
-ffi = FFI()
+from _myzlib import ffi
 
-ffi.cdef("""typedef void const *voidpc;
-typedef void  *voidpf;
-typedef void  *voidp;
-typedef unsigned int uInt;
-   
-typedef voidpf (*alloc_func)(voidpf opaque, uInt items, uInt size);
-typedef void   (*free_func) (voidpf opaque, voidpf address);
-struct internal_state;
-
-typedef struct z_stream_s {
-    const unsigned char *next_in;     /* next input byte */
-    unsigned int     avail_in;  /* number of bytes available at next_in */
-    unsigned long    total_in;  /* total number of input bytes read so far */
-
-    unsigned char    *next_out; /* next output byte should be put there */
-    unsigned int   avail_out; /* remaining free space at next_out */
-    unsigned long     total_out; /* total number of bytes output so far */
-
-    const unsigned char *msg;  /* last error message, NULL if no error */
-    struct internal_state *state; /* not visible by applications */
-
-    alloc_func zalloc;  /* used to allocate the internal state */
-    free_func  zfree;   /* used to free the internal state */
-    voidpf     opaque;  /* private data object passed to zalloc and zfree */
-
-    int     data_type;  /* best guess about the data type: binary or text */
-    unsigned long    adler;      /* adler32 value of the uncompressed data */
-    unsigned long    reserved;   /* reserved for future use */
-} z_stream;
-
-int deflateInit_(z_stream* strm, int level,
-                 const char *version, int stream_size);
-int inflateInit2_(z_stream* strm, int  windowBits,
-                 const char *version, int stream_size);
-int deflate (z_stream* strm, int flush);
-int inflate (z_stream* strm, int flush);
-int deflateEnd (z_stream* strm);
-""")
-_zlib = ffi.dlopen("zlib.dll")
-
+_zlib = ffi.dlopen( "zlib.dll")
 
 ZLIB_VERSION = "1.2.8"
 Z_NULL = 0
 Z_OK = 0
 Z_STREAM_END = 1
-Z_NEED_DICT = 2
 Z_NO_FLUSH = 0
 Z_FINISH = 4
 CHUNK = 1024 * 32
@@ -58,18 +17,20 @@ def compress(input, level=6):
     out = []
     st = ffi.new("z_stream*")
     st.avail_in  = len(input)
-    st.next_in   = ffi.from_buffer(create_string_buffer(input))
+    st.next_in   = ffi.new("char[]", input)
     st.avail_out = 0
     st.next_out = ffi.NULL
-    err = _zlib.deflateInit_(st, level, ffi.new("char[]", ZLIB_VERSION), ffi.sizeof("z_stream"))
+    err = _zlib.deflateInit_(st, level, ffi.new("char[]", 
+                ZLIB_VERSION), ffi.sizeof("z_stream"))
+    st.data_type = 1
     assert err == Z_OK, err
     while True:
         st.avail_out = CHUNK
-        outbuf = ffi.from_buffer(create_string_buffer(CHUNK))
+        outbuf = ffi.new("char[]", CHUNK)
         st.next_out = outbuf
         print "Lets deflate"
         err = _zlib.deflate(st, Z_FINISH)
-        print "deflated ", err, st.avail_out, st.avail_in
+        print "deflated ", err, st.avail_out, st.avail_in, st.next_in, st.next_out, st.total_in, st.total_out
         print len(outbuf[0:CHUNK-st.avail_out])
         buf = ffi.buffer(outbuf[0:CHUNK-st.avail_out], CHUNK-st.avail_out)
         print "Len ", len(buf)
