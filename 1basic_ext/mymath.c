@@ -11,15 +11,8 @@ module_function(PyObject *self, PyObject *args){
     return Py_BuildValue("f", c);
 }
 
-static PyObject *
-myrandom(PyObject *self, PyObject *args){
-    float a = rand()/(float)RAND_MAX;
-    return Py_BuildValue("f", a);
-}
-
 static PyMethodDef MyMethods[] = {
     {"add",  module_function, METH_VARARGS, "Adds two numbers"},
-    {"random",  myrandom, METH_NOARGS, "Execute a shell command."},
     {NULL, NULL, 0, NULL}
 };
 

@@ -5,7 +5,8 @@
 static PyObject *
 average(PyObject *self, PyObject *args){
     PyObject * listObj; 
-    if (! PyArg_ParseTuple( args, "O!", &PyList_Type, &listObj))
+    if (! PyArg_ParseTuple( args, "O!",
+                &PyList_Type, &listObj))
         return NULL;
     
     std::vector<double> v;

@@ -45,7 +45,7 @@ def compress(input, level=6):
         outbuf = ctypes.create_string_buffer(CHUNK)
         st.next_out = ctypes.cast(outbuf, ctypes.POINTER(ctypes.c_ubyte))
         err = _zlib.deflate(ctypes.byref(st), Z_FINISH)
-        print "deflated ", err, st.avail_out, st.avail_in, st.next_in, st.next_out, st.total_in, st.total_out
+        # print "deflated ", err, st.avail_out, st.avail_in, st.next_in, st.next_out, st.total_in, st.total_out
         out.append(outbuf[:CHUNK-st.avail_out])
         if err == Z_STREAM_END: break
         elif err == Z_OK: pass

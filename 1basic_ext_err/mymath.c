@@ -15,7 +15,7 @@ static PyObject* divide(PyObject *self, PyObject *args){
     if(b==0){
         PyErr_SetString(PyExc_ZeroDivisionError,"Division by 0");
         //Py_RETURN_NONE; => Nothing happens, no py exception raised
-        return NULL;
+        return NULL; 
     }
     c = a/b;
     return Py_BuildValue("i", c);

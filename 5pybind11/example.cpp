@@ -3,8 +3,8 @@
 #include <numeric>
 #include <pybind11/stl.h>
 #include <pybind11/operators.h>
-
-/*int add(int i, int j) {
+/*
+int add(int i, int j) {
     return i + j;
 }
 
@@ -18,17 +18,10 @@ PYBIND11_PLUGIN(example) {
     return m.ptr();
 }*/
 
-int add(int i, int j) {
-    return i + j;
-}
 struct Data{
     Data(float t): value(t){}
     Data operator*(float factor) const { return Data(value * factor); }
     float value;
-};
-
-struct ZStream{
-    char* input;
 };
 
 float avg(const std::vector<float>& v){
@@ -57,12 +50,6 @@ PYBIND11_PLUGIN(example) {
         .def_readwrite("value", &Data::value)
         ;
         
-    py::class_<ZStream>(m, "ZStream")
-        .def(py::init<>())
-        .def_readwrite("input", &ZStream::input)
-        ;
-        
-    m.def("sum", &add, "A function which adds two numbers");
     m.def("avg", (float (*)(const std::vector<float>& v)) &avg, "Average of vector");
     m.def("avg", (float (*)(const std::vector<Data>& v)) &avg, "Average of vector");
     m.def("mydup",  &mydup, "Duplicate");
