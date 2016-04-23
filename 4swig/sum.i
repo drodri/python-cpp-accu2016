@@ -2,7 +2,7 @@
 %module sum
  %{
  /* Includes the header in the wrapper code */
- #include "sum.h"
+  #include "sum.h"
  %}
  
  /* Parse the header file to generate wrappers */

@@ -8,4 +8,5 @@ setup (name = 'MySum',
        version = '1.0',
        description = 'This is a sum package',
        py_modules = ['sum'],
-       data_files = [(sysconfig.get_python_lib(), ["mymath.dll"])])
+       data_files = [(sysconfig.get_python_lib(),
+                      ["mymath.dll"])])

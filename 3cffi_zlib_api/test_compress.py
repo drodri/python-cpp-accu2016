@@ -28,14 +28,9 @@ def compress(input, level=6):
         st.avail_out = CHUNK
         outbuf = ffi.new("char[]", CHUNK)
         st.next_out = outbuf
-        print "Lets deflate"
         err = _zlib.deflate(st, Z_FINISH)
-        print "deflated ", err, st.avail_out, st.avail_in, st.next_in, st.next_out, st.total_in, st.total_out
-        print len(outbuf[0:CHUNK-st.avail_out])
         buf = ffi.buffer(outbuf[0:CHUNK-st.avail_out], CHUNK-st.avail_out)
-        print "Len ", len(buf)
         out.append(buf[:])
-        print "Appended to out"
         if err == Z_STREAM_END: break
         elif err == Z_OK: pass
         else:

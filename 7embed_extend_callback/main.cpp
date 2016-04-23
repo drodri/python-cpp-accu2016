@@ -71,11 +71,14 @@ int main(int argc, char *argv[])
     Py_DECREF(pName);
     
     PyRun_SimpleString("import mymath");
-    PyRun_SimpleString("def simple_log(msg):\n    print 'Log ', msg2\n\n"
+    PyRun_SimpleString("def simple_log(msg):\n"
+                       "    print 'Log ', msg2\n\n"
                        "mymath.reg_log(simple_log)\n");
-    PyRun_SimpleString("def add(a, b):\n    return mymath.add(a, b)\n");
+    PyRun_SimpleString("def add(a, b):\n"
+                       "    return mymath.add(a, b)\n");
 
-    PyObject* pFunc = PyObject_GetAttrString(pModule, "add");
+    PyObject* pFunc = PyObject_GetAttrString(pModule,
+                                             "add");
     PyObject* pArgs = PyTuple_New(2);
     PyObject* param1 = PyFloat_FromDouble(2.1);
     PyTuple_SetItem(pArgs, 0, param1);
@@ -87,7 +90,8 @@ int main(int argc, char *argv[])
     if(pValue==NULL)
         printf("Call failed\n");
     else{
-        printf("Result of call: %lf\n", PyFloat_AsDouble(pValue));
+        printf("Result of call: %lf\n",
+               PyFloat_AsDouble(pValue));
         Py_XDECREF(pValue);  
     }
         
