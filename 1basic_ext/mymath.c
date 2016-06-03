@@ -16,9 +16,7 @@ static PyMethodDef MyMethods[] = {
     {NULL, NULL, 0, NULL}
 };
 
-PyMODINIT_FUNC
-initmymath(void){ // This NAME is COMPULSORY
-    srand((int)time(NULL));
+PyMODINIT_FUNC initmymath(void){ // This NAME COMPULSORY
     (void) Py_InitModule3("mymath", MyMethods,
                           "My documentation of the mymath module");
 }
